@@ -1,3 +1,50 @@
+<?php
+
+$listProdutos = '';
+
+foreach ($produtos as $item) {
+
+  $listProdutos .= '
+
+                <tr>
+                  <td>   
+                            
+                        <div class="icheck-red ">
+                        <input type="checkbox" value="' . $item->id . '" name="id[]" id="[' . $item->id . ']">
+                        <label for="[' . $item->id . ']"></label>
+                        </div>   
+                        </td>
+                                
+                        <td>
+                        
+                        <div class="product-img">
+                        <img src="' . $item->estoque = '' ? 'imgs/sem.jpg' : $item->foto . '" class="img-size-50" class="img-thumbnail">
+                        </div>
+                        </td>
+                        <td>' . $item->codigo . '</td>
+                        <td>' . $item->nome . '</td>
+                        <td style="text-align:center">
+                      
+                        <span style="font-size:16px" class="' . ($item->estoque <= 3 ? 'badge badge-danger' : 'badge badge-success') . '">' . $item->estoque . '</span>
+                        
+                        </td>
+                        <td> R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</td>
+                        <td>
+
+                        <a href="?acao=add&id=' . $item->id . '">
+                         <i class="fas fa-plus-circle" style="font-size:38px;color:#30da04"></i>
+                       </a>
+                        
+                  </td>
+                </tr>
+
+';
+}
+
+
+?>
+
+
 <div class="content-wrapper">
 
     <div class="content-header">
@@ -8,8 +55,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active"><?=BRAND?></li>
+              <li class="breadcrumb-item"><a href="#">Atendente:</a></li>
+              <li class="breadcrumb-item active"><?= $usuario ?></li>
             </ol>
           </div>
         </div>
@@ -18,147 +65,234 @@
     <section class="content">
 
 <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-8 col-6">
-            <!-- small box -->
-            <div class="small-box bg-dark" >
-              <div class="inner">
-                <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
+    
+<div class="row">
+         <div class="col-lg-8 col-6">
+                            
+         <div class="card card-dark">
+         <div class="card-header">
+           <h3 class="card-title">
+               <form method="get">
+                    <div class="input-group input-group-sm" style="width: 300px;">
+                   
+                    <input type="text" name="buscar" class="form-control float-right" placeholder="Pesquisar...." autofocus>
+                  
+                    <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                    </button>
+                    </div>
+                    </div>
+                </form>    
+           </h3>
+           
+           
+           </div>
+           <form id="form1" action="pdv.php" method="post">
+           <div class="card-header">
+           <ul class="pagination pagination-sm float-right">
+           <button type="submit" name="submit" class="btn btn-warning" style="margin-top:-20px;">
+           Adicionar Todos
+           &nbsp; <i class="fas fa-chevron-right"></i>
+           </button>
+           </ul>
 
-                <div class="input-group mb-1">
-                  <input type="text" class="form-control" placeholder="Digite...">
-                  <div class="input-group-prepend">
-                    <button type="button" class="btn btn-danger">Pesquisar</button>
-                  </div>
+           </div>
+           
+           <div class="card-body" >
 
-                </div>
+           
+           <div class="tab-content p-0 direct-chat-messages" style="height: 450px; margin-top:-30px" >
+           <table class="table table-hover table-dark" >
+                <thead>
+                  <tr>
+                    <th>
+                    <div class="icheck-warning d-inline">
+                    <input type="checkbox" id="select-all" >
+                    <label for="select-all">
+                    </label>
+                    </div>
 
-                </h3>
-                <div class="card-tools" >
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Adicionar</a>
-                    </li>
+                    </th>
+                    <th>IMAGEM</th>
+                    <th>CÓDIGO</th>
+                    <th>PRODUTO</th>
+                    <th style="text-align:center">ESTOQUE</th>
+                    <th>VALOR</th>
+                    <th>AÇÃO</th>
 
-                  </ul>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="tab-content p-0 direct-chat-messages" style="height: 400px;">
-
-                   <!-- TABLE -->
-                   <form id="form1" action="receber-insert.php" method="post">
-
-                   <table class="table table-hover table-dark" >
-                            <thead>
-                              <tr>
-                                <th>
-                                <div class="icheck-warning d-inline">
-                                <input type="checkbox" id="select-all" >
-                                <label for="select-all">
-                                </label>
-                                </div>
-
-                                </th>
-                                <th>IMAGEM</th>
-                                <th>PRODUTO</th>
-                                <th>CODIGO</th>
-                                <th>VALOR</th>
-                                <th>AÇÃO</th>
-
-                              </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>   
-                                
-                                <div class="icheck-danger d-inline">
-                                <input type="checkbox" id="03">
-                                <label for="03">
-                                </label>
-                                </div>
-                                
-                                </td>
-                                <td>
-                                  <div class="product-img">
-                                  <img src="/imgs/sem.jpg" class="img-size-50">
-                                  </div>
-                                </td>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>john@example.com</td>
-                                <td><i class="fas fa-plus-circle" 
-                                       style="font-size: 35px; color:chartreuse"></i></td>
-                              </tr>
-                              <tr>
-
-                              <td>   
-                                
-                                <div class="icheck-danger d-inline">
-                                <input type="checkbox" id="02">
-                                <label for="02">
-                                </label>
-                                </div>
-                                
-                                </td>
-
-                                <td>
-
-                                <div class="product-img">
-                                  <img src="assets/dist/img/avatar4.png" class="img-size-50">
-                                  </div>
-                                </td>
-                                <td>Mary</td>
-                                <td>Moe</td>
-                                <td>mary@example.com</td>
-                                <td><i class="fas fa-plus-circle" 
-                                       style="font-size: 35px; color:chartreuse"></i></td>
-                              </tr>
-                              <tr>
-                              <td>   
-                                
-                                <div class="icheck-danger d-inline">
-                                <input type="checkbox" id="01">
-                                <label for="01">
-                                </label>
-                                </div>
-                                
-                                </td>
-
-                                <td>
-
-                                <div class="product-img">
-                                  <img src="assets/dist/img/avatar5.png" class="img-size-50">
-                                  </div>
-                                </td>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                                <td><i class="fas fa-plus-circle" 
-                                       style="font-size: 35px; color:chartreuse"></i></td>
-                              </tr>
+                  </tr>
+                </thead>
+                <tbody>
+        
+                  <?=$listProdutos  ?>
 
 
-                            </tbody>
-                  </table>
-                   </form>
-                </div>
-              </div>
+                </tbody>
+            </table>
             </div>
+           </div>
+           </div>
 
-              </div>
-              <a href="#" class="small-box-footer">Mais detalhes <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+                       
+          </form>
+
           </div>
 
           <div class="col-lg-4 col-6">
+          <?php
+
+           use   \App\Entidy\Produto;
+
+
+           if (!isset($_SESSION['carrinho'])) {
+                      $_SESSION['carrinho'] = array();
+              }
+          
+              $resultado = '';
+              $total = 0;
+
+
+              if(isset($_GET['acao'])){
+
+                if ($_GET['acao'] == 'add') {
+                  $id = intval($_GET['id']);
+                  
+                  if (!isset($_SESSION['carrinho'][$id])) {
+              
+                      $_SESSION['carrinho'][$id] = 1;
+                  } else {
+                      $_SESSION['carrinho'][$id] += 1;
+                  }
+              }
+
+                if ($_GET['acao'] == 'up') {
+              
+                  if (is_array($_POST['prod'])) {
+              
+                     foreach ($_POST['prod'] as $id => $qtd) {
+              
+                        $id = intval($id);
+                        $qtd = intval($qtd);
+              
+                        if (!empty($qtd) || $qtd != 0) {
+              
+                           $_SESSION['carrinho'][$id] = $qtd;
+                        } else {
+              
+                           unset($_SESSION['carrinho'][$id]);
+                        }
+                     }
+                  }
+              
+                  if (is_array($_POST['val'])) {
+              
+                     foreach ($_POST['val'] as $id => $preco) {
+              
+                        $item = Produto::getID($id);
+              
+                        $item->valor_venda = $preco;
+                        $item->atualizar();
+                     }
+                  }
+               }
+              
+               if ($_GET['acao'] == 'del') {
+                  $id = intval($_GET['id']);
+              
+                  if (isset($_SESSION['carrinho'][$id])) {
+                     unset($_SESSION['carrinho'][$id]);
+                  }
+               }
+              
+              }
+              
+              // ADICONAR
+              
+              if (isset($_POST['submit'])) {
+              
+                if (isset($_POST['id'])) {
+              
+                  foreach ($_POST['id'] as $id) {
+              
+                    if (isset($_POST['id'])) {
+                  
+                      $id  = intval($id);
+              
+                      if (!isset($_SESSION['carrinho'][$id])) {
+              
+                          $_SESSION['carrinho'][$id] = 1;
+                          
+                      } else {
+              
+                          $_SESSION['carrinho'][$id] += 1;
+                      }
+                    
+                  }
+              
+                  }
+              
+                }
+              
+                foreach ($_SESSION['carrinho'] as $id => $qtd) {
+              
+                  $item = Produto::getID($id);
+              
+                  $nome = $item->nome;
+              
+                  $valor_venda = $item->valor_venda;
+              
+                  $qtd;
+                   
+                  $sub = $qtd * $item->valor_venda;
+              
+                  $total += $sub;
+              
+                  $resultado .=' 
+                      
+                  <tr>
+                    
+                    <td style="text-transform:uppercase; font-size:small">' . $nome . '</td>
+              
+                    <td style="width:80px">
+              
+                    <input type="text" size="1" name="prod[' . $id . ']" value="' . $qtd . '" style="width:50px" />
+              
+                   
+                    
+                    </td>
+              
+                    <td style="width:150px">R$
+              
+                    <input type="text" size="3" name="val[' . $id . ']" value="' . $item->valor_venda . '" />
+              
+                    <button type="submit" ><i class="fas fa-pen"></i></button>
+                     
+                    &nbsp;&nbsp;
+              
+                    <a href="?acao=del&id=' . $id . '"
+                  
+                    <i class="fas fa-times" style="color:#ff0000"></i>
+                    </a>
+                    
+                    </td>
+                    <td> R$ ' . number_format($sub, "2", ",", ".") . '</td>
+              
+                    
+                    </tr>
+                  
+                  
+                  ';
+              
+                }
+              }
+              
+
+          ?>
          
-            <div class="small-box bg-danger">
+         <div class="small-box bg-danger">
               <div class="inner">
-                <h3>R$ 2.582,23</h3>
+                <h3> R$ <?=number_format($total,"2",",",".") ?></h3>
 
                 <p>Total de compras</p>
                 <hr>
@@ -167,50 +301,19 @@
 
                 <div class="tab-content p-0 direct-chat-messages" style="height: 250px;">
 
-                  <table class="table table-hover table-dark" >
+                  <table class="table table-hover table-dark table-striped table-sm" >
                   <thead>
                   <tr>
-                  <th>Produto</th>
-                  <th>QTD</th>
-                  <th>Valor</th>
-                  </tr>
+                    <th> PRODUTO </th>
+                    <th> QTD </th>
+                    <th style="width:200px"> VALOR </th>
+                    <th style="width:100px"> SUBTOTAL </th>
+                    </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                  <td>John</td>
-                  <td>Doe</td>
-                  <td>john@example.com</td>
-                  </tr>
-                  <tr>
-                  <td>Mary</td>
-                  <td>Moe</td>
-                  <td>mary@example.com</td>
-                  </tr>
-                  <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
-                  <td>july@example.com</td>
-                  </tr>
-                  <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
-                  <td>july@example.com</td>
-                  </tr>
-                  <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
-                  <td>july@example.com</td>
-                  </tr>
-                  <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
-                  <td>july@example.com</td>
-                  </tr>
-                  <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
-                  <td>july@example.com</td>
-                  </tr>
+                  <form action="?acao=up" method="post">
+                   <?= $resultado ?>  
+                  </form>
                   </tbody>
                   </table>
 
